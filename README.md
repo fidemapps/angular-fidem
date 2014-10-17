@@ -1,4 +1,4 @@
-# Angular fidem
+# Angular Fidem
 
 [ ![Codeship Status for sguimont/angular-fidem](https://www.codeship.io/projects/2f3ccfe0-36a1-0132-5705-2a2ee4030446/status?branch=master)](https://www.codeship.io/projects/41452)
 

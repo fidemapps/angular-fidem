@@ -5,7 +5,7 @@
   "main": "angular-fidem.js",
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:fidem-team/angular-fidem.git"
+    "url": "git@github.com:sguimont/angular-fidem.git"
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run",
