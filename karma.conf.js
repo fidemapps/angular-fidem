@@ -18,7 +18,7 @@ module.exports = function (config) {
       'node_modules/chai/chai.js',
 
       'angular-fidem.js',
-      'test.js'
+      'test/*.js'
     ],
     logLevel: config.LOG_ERROR
   });
