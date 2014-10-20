@@ -180,7 +180,7 @@
          */
 
         fidem.getMemberChallenges = function (memberId) {
-          return $http.get(config.endpoint + '/api/member/' + memberId + '/challenges', {}, {
+          return $http.get(config.endpoint + '/api/member/' + memberId + '/challenges', {
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }
