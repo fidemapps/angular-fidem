@@ -1,5 +1,6 @@
 /*! Angular fidem v0.1.0 | © 2014 Fidem | License MIT */
-(function (window, angular, undefined) {'use strict';
+(function (window, angular, undefined) {
+  'use strict';
 
   /**
    * GeoLocalisation options.
@@ -68,7 +69,7 @@
         var fidem = {};
 
         /**
-         * Log an action.
+         * Logs an action.
          *
          * @example
          *
@@ -102,6 +103,87 @@
                 'X-Fidem-AccessApiKey': config.key
               }
             });
+          });
+        };
+
+        /**
+         * Starts a session.
+         *
+         * @example
+         *
+         * fidem.startSession()
+         *
+         * @param {string} [memberId] The member identifier
+         * @returns {Promise}
+         */
+
+        fidem.startSession = function (memberId) {
+          var sessionParameters = {};
+          if (memberId) {
+            sessionParameters.member_id = memberId;
+          }
+          return $http.post(config.endpoint + '/api/sessions', sessionParameters, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Assigns a member to a session.
+         *
+         * @example
+         *
+         * fidem.assignMemberToSession('sessionIdentifier', 'memberIdentifier')
+         *
+         * @param {string} sessionId Session identifier
+         * @param {string} memberId Member identifier
+         * @returns {Promise}
+         */
+
+        fidem.assignMemberToSession = function (sessionId, memberId) {
+          return $http.put(config.endpoint + '/api/session/' + sessionId + '/member/' + memberId, {}, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets member profile.
+         *
+         * @example
+         *
+         * fidem.getMemberProfile('memberIdentifier')
+         *
+         * @param {string} memberId Member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getMemberProfile = function (memberId) {
+          return $http.get(config.endpoint + '/api/member/' + memberId, {}, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets member challenges.
+         *
+         * @example
+         *
+         * fidem.getMemberChallenges('memberIdentifier')
+         *
+         * @param {string} memberId Member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getMemberChallenges = function (memberId) {
+          return $http.get(config.endpoint + '/api/member/' + memberId + '/challenges', {}, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
           });
         };
 
