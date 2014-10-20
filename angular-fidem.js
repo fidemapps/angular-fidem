@@ -161,7 +161,7 @@
          */
 
         fidem.getMemberProfile = function (memberId) {
-          return $http.get(config.endpoint + '/api/member/' + memberId, {}, {
+          return $http.get(config.endpoint + '/api/member/' + memberId, {
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }
