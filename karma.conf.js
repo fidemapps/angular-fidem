@@ -2,6 +2,7 @@ module.exports = function (config) {
   config.set({
     plugins: [
       'karma-mocha',
+      'karma-coverage',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-phantomjs-launcher',
@@ -11,7 +12,15 @@ module.exports = function (config) {
     singleRun: false,
     autoWatch: true,
     colors: true,
-    reporters: ['dots'],
+    preprocessors: {
+      'angular-fidem.js': 'coverage'
+    },
+    coverageReporter: {
+      dir: 'coverage',
+      subdir: '.',
+      type: 'cobertura'
+    },
+    reporters: ['dots', 'junit', 'coverage'],
     browsers: ['PhantomJS'],
     files: [
       'bower_components/angular/angular.js',
