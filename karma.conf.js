@@ -4,6 +4,7 @@ module.exports = function (config) {
       'karma-mocha',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
       'karma-junit-reporter'
     ],
     frameworks: ['mocha'],
@@ -11,7 +12,7 @@ module.exports = function (config) {
     autoWatch: true,
     colors: true,
     reporters: ['dots'],
-    browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
+    browsers: [process.env.TRAVIS ? 'Firefox' : 'PhantomJS'],
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
