@@ -1,10 +1,22 @@
+# Language setting
 language: node_js
 
+# Version number
 node_js:
   - 0.10.30
 
+# The path for Xunit to output test reports
 env:
-  - XUNIT_FILE=test-results.xml
+  - XUNIT_FILE=shippable/test-results.xml
 
+# Create directories for test and coverage reports
+before_script:
+  - mkdir -p shippable/testresults
+
+# Running the tests
 script:
   - npm test
+
+# Tell istanbul to generate a coverage report
+after_script:
+  - cp ./test-results.xml ./shippable/testresults
