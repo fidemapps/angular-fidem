@@ -1,0 +1,10 @@
+language: node_js
+
+node_js:
+  - 0.10.30
+
+env:
+  - XUNIT_FILE=shippable/test-results.xml
+
+script:
+  - npm test

@@ -3,7 +3,8 @@ module.exports = function (config) {
     plugins: [
       'karma-mocha',
       'karma-chrome-launcher',
-      'karma-firefox-launcher'
+      'karma-firefox-launcher',
+      'karma-junit-reporter'
     ],
     frameworks: ['mocha'],
     singleRun: false,
