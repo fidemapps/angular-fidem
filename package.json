@@ -8,7 +8,7 @@
     "url": "git@github.com:sguimont/angular-fidem.git"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --reporters junit,dots --single-run",
+    "test": "./node_modules/karma/bin/karma start --single-run",
     "install": "bower install"
   },
   "keywords": [
