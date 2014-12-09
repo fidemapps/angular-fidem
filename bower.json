@@ -1,7 +1,7 @@
 {
   "name": "angular-fidem",
   "main": "angular-fidem.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/sguimont/angular-fidem/",
   "authors": [
     "Sébastien Guimont",
@@ -16,13 +16,13 @@
   ],
   "license": "MIT",
   "ignore": [
-      "**/.*",
-      "package.json",
-      "node_modules",
-      "bower_components",
-      "Gruntfile.js",
-      "TODO.md",
-      "test.js"
+    "**/.*",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "Gruntfile.js",
+    "TODO.md",
+    "test.js"
   ],
   "dependencies": {
     "angular": "^1.2.26"
