@@ -2,7 +2,7 @@
   "name": "angular-fidem",
   "main": "angular-fidem.js",
   "version": "0.1.2",
-  "homepage": "https://github.com/sguimont/angular-fidem/",
+  "homepage": "https://github.com/fidemapps/angular-fidem/",
   "authors": [
     "Sébastien Guimont",
     "Greg Bergé"
