@@ -169,6 +169,55 @@
         };
 
         /**
+         * Gets menus.
+         *
+         * @example
+         *
+         * fidem.getMenus()
+         *
+         * @param {string} [memberId] The member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getMenus = function (memberId) {
+          var sessionParameters = {};
+          if (memberId) {
+            sessionParameters.member_id = memberId;
+          }
+          return $http.get(config.endpoint + '/api/content/menus', {
+            params: sessionParameters,
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets a page.
+         *
+         * @example
+         *
+         * fidem.getPage('pageid')
+         *
+         * @param {string} pageId The page identifier
+         * @param {string} [memberId] The member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getPage = function (pageId, memberId) {
+          var sessionParameters = {};
+          if (memberId) {
+            sessionParameters.member_id = memberId;
+          }
+          return $http.get(config.endpoint + '/api/content/page/' + pageId, {
+            params: sessionParameters,
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
          * Gets member challenges.
          *
          * @example
