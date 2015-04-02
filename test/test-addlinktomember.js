@@ -23,19 +23,20 @@ describe('Fidem provider', function () {
     $q = $injector.get('$q');
     $timeout = $injector.get('$timeout');
 
-    $httpBackend.whenGET('http://services.fidemapps.com/api/member/MEMBER_ID/challenges')
+    $httpBackend.whenPOST('http://services.fidemapps.com/api/members/MEMBER_ID/links')
       .respond(200, {});
 
-    getMemberChallenges = function (done) {
-      fidem.getMemberChallenges('MEMBER_ID').then(function () {
+    addLinkToMember = function (memberId, link, done) {
+      fidem.addLinkToMember(memberId, link).then(function () {
         done();
       });
       $rootScope.$digest();
     };
 
-    expectRequest = function () {
-      $httpBackend.expectGET(
-        'http://services.fidemapps.com/api/member/MEMBER_ID/challenges',
+    expectRequest = function (data) {
+      $httpBackend.expectPOST(
+        'http://services.fidemapps.com/api/members/MEMBER_ID/links',
+        data,
         function (headers) {
           return headers['X-Fidem-AccessApiKey'] === 'myApiKey';
         }
@@ -48,11 +49,11 @@ describe('Fidem provider', function () {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  describe('call getMemberChallenges', function () {
-    it('should get member challenges', function (done) {
-      expectRequest();
+  describe('call addLinkToMember', function () {
+    it('should assign add link to member', function (done) {
+      expectRequest({"email": "test@test.com"});
 
-      getMemberChallenges(done);
+      addLinkToMember('MEMBER_ID', {email: 'test@test.com'}, done);
 
       $httpBackend.flush();
     });

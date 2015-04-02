@@ -23,7 +23,7 @@ describe('Fidem provider', function () {
     $q = $injector.get('$q');
     $timeout = $injector.get('$timeout');
 
-    $httpBackend.whenGET('http://services.fidemapps.com/api/member/MEMBER_ID')
+    $httpBackend.whenGET('http://services.fidemapps.com/api/members/MEMBER_ID')
       .respond(200, {});
 
     getMemberProfile = function (done) {
@@ -35,7 +35,7 @@ describe('Fidem provider', function () {
 
     expectRequest = function () {
       $httpBackend.expectGET(
-        'http://services.fidemapps.com/api/member/MEMBER_ID',
+        'http://services.fidemapps.com/api/members/MEMBER_ID',
         function (headers) {
           return headers['X-Fidem-AccessApiKey'] === 'myApiKey';
         }

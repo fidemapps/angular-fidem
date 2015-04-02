@@ -1,4 +1,4 @@
-/*! Angular fidem v0.1.0 | © 2014 Fidem | License MIT */
+/*! Angular fidem | © 2014 Fidem | License MIT */
 (function (window, angular, undefined) {
   'use strict';
 
@@ -142,7 +142,7 @@
          */
 
         fidem.assignMemberToSession = function (sessionId, memberId) {
-          return $http.put(config.endpoint + '/api/session/' + sessionId + '/member/' + memberId, {}, {
+          return $http.put(config.endpoint + '/api/sessions/' + sessionId + '/member/' + memberId, {}, {
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }
@@ -161,7 +161,53 @@
          */
 
         fidem.getMemberProfile = function (memberId) {
-          return $http.get(config.endpoint + '/api/member/' + memberId, {
+          return $http.get(config.endpoint + '/api/members/' + memberId, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Adds a link to a member.
+         *
+         * @example
+         *
+         * fidem.addLinkToMember('member_id', {
+         *    email: 'test@test.com',
+         *    first_name: 'Bob',
+         *    last_name: 'Smith',
+         *    link_reason: 'invite'
+         * })
+         *
+         * @param {string} memberId The member identifier to get the new link
+         * @param {Object} link The link data
+         * @returns {Promise}
+         */
+
+        fidem.addLinkToMember = function (memberId, link) {
+          return $http.post(config.endpoint + '/api/members/' + memberId + '/links', link, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Adds a link to a member.
+         *
+         * @example
+         *
+         * fidem.linkMembers('member_id', 'link_member_id', 'invite')
+         *
+         * @param {string} memberId The member identifier to get the new link
+         * @param {string} linkMemberId The link member identifier
+         * @param {string} linkReason The link reason
+         * @returns {Promise}
+         */
+
+        fidem.linkMembers = function (memberId, linkMemberId, linkReason) {
+          return $http.put(config.endpoint + '/api/members/' + memberId + '/link/' + linkMemberId, {link_reason: linkReason}, {
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }
@@ -209,7 +255,32 @@
           if (memberId) {
             sessionParameters.member_id = memberId;
           }
-          return $http.get(config.endpoint + '/api/content/page/' + pageId, {
+          return $http.get(config.endpoint + '/api/content/pages/' + pageId, {
+            params: sessionParameters,
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets a news list.
+         *
+         * @example
+         *
+         * fidem.getNewsList('newsListId')
+         *
+         * @param {string} newsListId The news list identifier
+         * @param {string} [memberId] The member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getNewsList = function (newsListId, memberId) {
+          var sessionParameters = {};
+          if (memberId) {
+            sessionParameters.member_id = memberId;
+          }
+          return $http.get(config.endpoint + '/api/content/newslists/' + newsListId, {
             params: sessionParameters,
             headers: {
               'X-Fidem-AccessApiKey': config.key
@@ -229,7 +300,45 @@
          */
 
         fidem.getMemberChallenges = function (memberId) {
-          return $http.get(config.endpoint + '/api/member/' + memberId + '/challenges', {
+          return $http.get(config.endpoint + '/api/members/' + memberId + '/challenges', {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets member challenges done.
+         *
+         * @example
+         *
+         * fidem.getMemberChallengesDone('memberIdentifier')
+         *
+         * @param {string} memberId Member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getMemberChallengesDone = function (memberId) {
+          return $http.get(config.endpoint + '/api/members/' + memberId + '/challenges/done', {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets member challenges todo.
+         *
+         * @example
+         *
+         * fidem.getMemberChallengesTodo('memberIdentifier')
+         *
+         * @param {string} memberId Member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getMemberChallengesTodo = function (memberId) {
+          return $http.get(config.endpoint + '/api/members/' + memberId + '/challenges/todo', {
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }

@@ -23,24 +23,20 @@ describe('Fidem provider', function () {
     $q = $injector.get('$q');
     $timeout = $injector.get('$timeout');
 
-    $httpBackend.whenGET('http://services.fidemapps.com/api/content/pages/PAGE_ID')
-      .respond(200, {});
-    $httpBackend.whenGET('http://services.fidemapps.com/api/content/pages/PAGE_ID?member_id=MEMBER_ID')
+    $httpBackend.whenPUT('http://services.fidemapps.com/api/members/MEMBER_ID/link/LINK_MEMBER_ID')
       .respond(200, {});
 
-    getPage = function (memberId, done) {
-      fidem.getPage('PAGE_ID', memberId).then(function () {
+    linkMembers = function (memberId, linkMemberId, reason, done) {
+      fidem.linkMembers(memberId, linkMemberId, reason).then(function () {
         done();
       });
       $rootScope.$digest();
     };
 
     expectRequest = function (data) {
-      var url = 'http://services.fidemapps.com/api/content/pages/PAGE_ID';
-      if (data) {
-        url = url + '?member_id=' + data;
-      }
-      $httpBackend.expectGET(url,
+      $httpBackend.expectPUT(
+        'http://services.fidemapps.com/api/members/MEMBER_ID/link/LINK_MEMBER_ID',
+        data,
         function (headers) {
           return headers['X-Fidem-AccessApiKey'] === 'myApiKey';
         }
@@ -53,24 +49,13 @@ describe('Fidem provider', function () {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  describe('without member identifier', function () {
-    it('should get page without member identifier', function (done) {
-      expectRequest();
+  describe('call addLinkMembers', function () {
+    it('should assign link members', function (done) {
+      expectRequest({"link_reason": "LINK_REASON"});
 
-      getPage(undefined, done);
-
-      $httpBackend.flush();
-    });
-  });
-
-  describe('with member identifier', function () {
-    it('should get page with a member identifier', function (done) {
-      expectRequest('MEMBER_ID');
-
-      getPage('MEMBER_ID', done);
+      linkMembers('MEMBER_ID', 'LINK_MEMBER_ID', 'LINK_REASON', done);
 
       $httpBackend.flush();
     });
   });
-
 });

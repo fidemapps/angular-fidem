@@ -23,7 +23,7 @@ describe('Fidem provider', function () {
     $q = $injector.get('$q');
     $timeout = $injector.get('$timeout');
 
-    $httpBackend.whenPUT('http://services.fidemapps.com/api/session/SESSION_ID/member/MEMBER_ID')
+    $httpBackend.whenPUT('http://services.fidemapps.com/api/sessions/SESSION_ID/member/MEMBER_ID')
       .respond(200, {});
 
     assignMemberToSession = function (sessionId, memberId, done) {
@@ -35,7 +35,7 @@ describe('Fidem provider', function () {
 
     expectRequest = function (data) {
       $httpBackend.expectPUT(
-        'http://services.fidemapps.com/api/session/SESSION_ID/member/MEMBER_ID',
+        'http://services.fidemapps.com/api/sessions/SESSION_ID/member/MEMBER_ID',
         data,
         function (headers) {
           return headers['X-Fidem-AccessApiKey'] === 'myApiKey';

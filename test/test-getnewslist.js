@@ -23,20 +23,20 @@ describe('Fidem provider', function () {
     $q = $injector.get('$q');
     $timeout = $injector.get('$timeout');
 
-    $httpBackend.whenGET('http://services.fidemapps.com/api/content/pages/PAGE_ID')
+    $httpBackend.whenGET('http://services.fidemapps.com/api/content/newslists/NEWSLIST_ID')
       .respond(200, {});
-    $httpBackend.whenGET('http://services.fidemapps.com/api/content/pages/PAGE_ID?member_id=MEMBER_ID')
+    $httpBackend.whenGET('http://services.fidemapps.com/api/content/newslists/NEWSLIST_ID?member_id=MEMBER_ID')
       .respond(200, {});
 
-    getPage = function (memberId, done) {
-      fidem.getPage('PAGE_ID', memberId).then(function () {
+    getNewsList = function (memberId, done) {
+      fidem.getNewsList('NEWSLIST_ID', memberId).then(function () {
         done();
       });
       $rootScope.$digest();
     };
 
     expectRequest = function (data) {
-      var url = 'http://services.fidemapps.com/api/content/pages/PAGE_ID';
+      var url = 'http://services.fidemapps.com/api/content/newslists/NEWSLIST_ID';
       if (data) {
         url = url + '?member_id=' + data;
       }
@@ -54,20 +54,20 @@ describe('Fidem provider', function () {
   });
 
   describe('without member identifier', function () {
-    it('should get page without member identifier', function (done) {
+    it('should get newlist without member identifier', function (done) {
       expectRequest();
 
-      getPage(undefined, done);
+      getNewsList(undefined, done);
 
       $httpBackend.flush();
     });
   });
 
   describe('with member identifier', function () {
-    it('should get page with a member identifier', function (done) {
+    it('should get newlist with a member identifier', function (done) {
       expectRequest('MEMBER_ID');
 
-      getPage('MEMBER_ID', done);
+      getNewsList('MEMBER_ID', done);
 
       $httpBackend.flush();
     });
