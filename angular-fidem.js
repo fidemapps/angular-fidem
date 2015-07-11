@@ -107,6 +107,29 @@
         };
 
         /**
+         * Creates a member.
+         *
+         * @example
+         *
+         * fidem.createMember({
+         *    email: 'test@test.com',
+         *    first_name: 'Bob',
+         *    last_name: 'Smith',
+         * })
+         *
+         * @param {Object} member The member to create
+         * @returns {Promise}
+         */
+
+        fidem.createMember = function (member) {
+          return $http.post(config.endpoint + '/api/members', member, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
          * Starts a session.
          *
          * @example
