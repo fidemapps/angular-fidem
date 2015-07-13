@@ -76,18 +76,32 @@
          * fidem.log({foo: 'bar'})
          *
          * @param {object} action Action to log
+         * @param {object} [overrideCoordinates] The cooridnates to override
          * @returns {Promise}
          */
 
-        fidem.log = function (action) {
+        fidem.log = function (action, overrideCoordinates) {
           // Convert action to a promise.
           var promise = $q.when(action);
 
           // Chain of interceptors.
           var chain = [].concat(interceptors);
 
-          // Push geoloc interceptor at the end.
-          chain.push(geolocInterceptor);
+          if (overrideCoordinates) {
+            // Push override interceptor at the end.
+            chain.push(function overrideCoordinatesInterceptor(action) {
+              var deferred = $q.defer();
+
+              action.coordinates = overrideCoordinates;
+              deferred.resolve(action);
+
+              return deferred.promise;
+            });
+          }
+          else {
+            // Push geoloc interceptor at the end.
+            chain.push(geolocInterceptor);
+          }
 
           // Apply interceptors.
           angular.forEach(chain, function (interceptor) {
@@ -105,6 +119,7 @@
             });
           });
         };
+        fidem.logAction = fidem.log;
 
         /**
          * Creates a member.
@@ -185,6 +200,25 @@
 
         fidem.getMemberProfile = function (memberId) {
           return $http.get(config.endpoint + '/api/members/' + memberId, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+        /**
+         * Gets member contests.
+         *
+         * @example
+         *
+         * fidem.getMemberContests('memberIdentifier')
+         *
+         * @param {string} memberId Member identifier
+         * @returns {Promise}
+         */
+
+        fidem.getMemberContests = function (memberId) {
+          return $http.get(config.endpoint + '/api/members/' + memberId + '/contests', {
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }

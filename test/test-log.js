@@ -24,10 +24,12 @@ describe('Fidem provider', function () {
     $timeout = $injector.get('$timeout');
 
     $httpBackend.whenPOST('http://services.fidemapps.com/api/gamification/actions')
-    .respond(200, {});
+      .respond(200, {});
 
-    logAction = function (done) {
-      fidem.log({foo: 'bar'}).then(function () { done(); });
+    logAction = function (done, overrideCoordinates) {
+      fidem.log({foo: 'bar'}, overrideCoordinates).then(function () {
+        done();
+      });
       $rootScope.$digest();
     };
 
@@ -42,7 +44,7 @@ describe('Fidem provider', function () {
     };
   }));
 
-  afterEach(function() {
+  afterEach(function () {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
@@ -82,6 +84,20 @@ describe('Fidem provider', function () {
 
       $timeout.flush();
       $httpBackend.flush();
+    });
+
+    it('should post action with overriden coordinates', function (done) {
+      expectRequest({
+        foo: 'bar',
+        coordinates: {lat: 11, long: 21}
+      });
+
+      logAction(done, {lat: 11, long: 21});
+
+      $timeout.flush();
+      $httpBackend.flush();
+
+      $httpBackend.verifyNoOutstandingRequest();
     });
   });
 
