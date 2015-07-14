@@ -188,6 +188,27 @@
         };
 
         /**
+         * Updates a member propfile.
+         *
+         * @example
+         *
+         * fidem.updateMemberProfile('memberIdentifier', member)
+         *
+         * @param {string} memberId Member identifier
+         * @param {string} member Member object
+         * @returns {Promise}
+         */
+
+        fidem.updateMemberProfile = function (memberId, member) {
+          return $http.put(config.endpoint + '/api/members/' + memberId, member, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key
+            }
+          });
+        };
+
+
+        /**
          * Gets member profile.
          *
          * @example
