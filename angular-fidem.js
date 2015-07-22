@@ -207,6 +207,31 @@
           });
         };
 
+        /**
+         * Updates a member profile picture.
+         *
+         * @example
+         *
+         * fidem.updateMemberProfilePicture( member, picture)
+         *
+         * @param {Object} member, Member object
+         * @param {Object} picture File object
+         * @returns {Promise}
+         */
+
+        fidem.updateMemberProfilePicture = function (member, picture) {
+          var formData = new FormData();
+          formData.append('__v', member.__v);
+          formData.append('file', picture);
+
+          return $http.put(config.endpoint + '/api/members/' + member.id + '/picture', formData, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key,
+              'Content-Type': undefined
+            }
+          });
+        };
+
 
         /**
          * Gets member profile.
