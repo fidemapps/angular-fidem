@@ -454,6 +454,30 @@
         };
 
         /**
+         * Upload picture for challenge.
+         *
+         * @example
+         *
+         * fidem.challengeTakePicture('challengeIdentifier', 'pictureFile')
+         *
+         * @param {string} challengeId Challenge identifier
+         * @param {object} picture Picture File
+         * @returns {Promise}
+         */
+
+        fidem.challengeTakePicture = function (challengeId, picture) {
+          var formData = new FormData();
+          formData.append('file', picture);
+
+          return $http.put(config.endpoint + '/api/challenges/' + challengeId + '/picture', formData, {
+            headers: {
+              'X-Fidem-AccessApiKey': config.key,
+              'Content-Type': undefined
+            }
+          });
+        };
+
+        /**
          * GeoLocalisation interceptor.
          *
          * @param {object} action
