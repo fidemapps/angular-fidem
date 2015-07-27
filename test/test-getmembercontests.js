@@ -23,18 +23,18 @@ describe('Fidem provider', function () {
     $q = $injector.get('$q');
     $timeout = $injector.get('$timeout');
 
-    $httpBackend.whenGET('http://services.fidemapps.com/api/members/MEMBER_ID/contests')
+    $httpBackend.whenGET('http://services.fidemapps.com/api/contests?memberId=MEMBER_ID')
       .respond(200, {});
 
-    getMemberContests = function (memberId, done) {
-      fidem.getMemberContests(memberId).then(function () {
+    getContests = function (memberId, done) {
+      fidem.getContests(memberId).then(function () {
         done();
       });
       $rootScope.$digest();
     };
 
     expectRequest = function (memberId) {
-      var url = 'http://services.fidemapps.com/api/members/' + memberId + '/contests';
+      var url = 'http://services.fidemapps.com/api/contests?memberId=' + memberId;
       $httpBackend.expectGET(url,
         function (headers) {
           return headers['X-Fidem-AccessApiKey'] === 'myApiKey';
@@ -52,7 +52,7 @@ describe('Fidem provider', function () {
     it('should get contest', function (done) {
       expectRequest('MEMBER_ID');
 
-      getMemberContests('MEMBER_ID', done);
+      getContests('MEMBER_ID', done);
 
       $httpBackend.flush();
     });
