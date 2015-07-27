@@ -253,18 +253,23 @@
         };
 
         /**
-         * Gets member contests.
+         * Gets contests.
          *
          * @example
          *
-         * fidem.getMemberContests('memberIdentifier')
+         * fidem.getContests('memberIdentifier')
          *
          * @param {string} memberId Member identifier
          * @returns {Promise}
          */
 
-        fidem.getMemberContests = function (memberId) {
-          return $http.get(config.endpoint + '/api/members/' + memberId + '/contests', {
+        fidem.getContests = function (memberId) {
+          var sessionParameters = {};
+          if (memberId) {
+            sessionParameters.memberId = memberId;
+          }
+          return $http.get(config.endpoint + '/api/contests', {
+            params: sessionParameters,
             headers: {
               'X-Fidem-AccessApiKey': config.key
             }
