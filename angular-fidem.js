@@ -80,7 +80,7 @@
          * @returns {Promise}
          */
         fidem.logDirect = function (action, overrideCoordinates) {
-          fidem.internalLog(true, action, overrideCoordinates);
+          return fidem.internalLog(true, action, overrideCoordinates);
         };
 
         /**
@@ -95,7 +95,7 @@
          * @returns {Promise}
          */
         fidem.log = function (action, overrideCoordinates) {
-          fidem.internalLog(false, action, overrideCoordinates);
+          return fidem.internalLog(false, action, overrideCoordinates);
         };
 
         fidem.internalLog = function (direct, action, overrideCoordinates) {
