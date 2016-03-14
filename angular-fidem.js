@@ -69,18 +69,36 @@
         var fidem = {};
 
         /**
-         * Logs an action.
+         * Logs a direct action.
          *
          * @example
          *
-         * fidem.log({foo: 'bar'})
+         * fidem.logDirect({foo: 'bar'})
          *
          * @param {object} action Action to log
          * @param {object} [overrideCoordinates] The cooridnates to override
          * @returns {Promise}
          */
+        fidem.logDirect = function (action, overrideCoordinates) {
+          fidem.internalLog(true, action, overrideCoordinates);
+        };
 
+        /**
+         * Logs an action.
+         *
+         * @example
+         *
+         * fidem.logDirect({foo: 'bar'})
+         *
+         * @param {object} action Action to log
+         * @param {object} [overrideCoordinates] The cooridnates to override
+         * @returns {Promise}
+         */
         fidem.log = function (action, overrideCoordinates) {
+          fidem.internalLog(false, action, overrideCoordinates);
+        };
+
+        fidem.internalLog = function (direct, action, overrideCoordinates) {
           // Convert action to a promise.
           var promise = $q.when(action);
 
@@ -112,7 +130,7 @@
 
           // Post action.
           return promise.then(function (action) {
-            return $http.post(config.endpoint + '/api/gamification/actions', action, {
+            return $http.post(direct ? config.endpoint + '/api/gamification/actions/direct' : config.endpoint + '/api/gamification/actions', action, {
               headers: {
                 'X-Fidem-AccessApiKey': config.key
               }
@@ -120,6 +138,7 @@
           });
         };
         fidem.logAction = fidem.log;
+        fidem.logDirectAction = fidem.logDirect;
 
         /**
          * Creates a member.
